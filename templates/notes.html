@@ -1,0 +1,87 @@
+{% import "bootstrap/wtf.html" as wtf%}
+{% extends 'base.html' %}
+
+{% block head %}
+    {{ super() }}
+    <title>{% block title %} Let me Note! | {{ title }}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock  %}
+
+{% block navbar %}
+    {{ super() }}
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{ url_for('index') }}">Logout</a></li>
+        </ul>
+{% endblock navbar %}
+
+    {% block content %}
+        <div class="container">
+            <h1>
+                Hello, {{ name }}
+            </h1> 
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading" style="display: flex; flex-direction: row; justify-content: space-between;">
+                        <h4>My to do list</h4>
+                        <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal" data-target="#myModal">
+                            <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </button>
+                        <!-- MODAL -->
+                        <div id="myModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                        
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Add new Task!</h4>
+                                </div>
+                                <div class="modal-body">
+                                <p>
+                                    {{ wtf.quick_form(task_form) }}
+                                </p>
+                                </div>
+                            </div>
+                        
+                            </div>
+                        </div>
+                        <!-- MODAL -->
+
+                </div>
+                <!-- List of notes -->
+                <ul class="list-group">
+                    {% if tasks %}                
+                        {% for task in tasks %}
+                        <li class="list-group-item" style="display: flex; align-items: baseline; flex-direction: row; justify-content: space-between;" >
+                            <div style="display: flex; align-items: baseline; flex-direction: row; justify-content: space-around;">
+                                <p style="padding-right: 1em;">
+                                    {{ task.description }}
+                                </p>
+                                <form action="/notes/{{ task.task_id }}/{{ task.status }}" method="POST" name="status" id="status-form">
+                                    <button type="submit" style="border: 0; background-color: white; padding: 0;" aria-label="Left Align">
+                                        {% if task.status == 1 %}
+                                            {% set status = "Done" %}
+                                            {% set type = "success" %}
+                                        {% endif %}
+                                        {% if task.status == 2 %}
+                                            {% set status = "Not Done" %}
+                                            {% set type = "warning" %}
+                                        {% endif %}
+                                        <span class="label label-{{ type }}">{{ status }}</span>
+                                    </button>
+                                </form>
+                            </div>
+                            <form action="/notes/{{ task.task_id }}/{{ 0 }}" method="POST">
+                                <button type="submit" class="btn btn-default" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
+                            </form>
+                        </li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="list-group-item">You don't have a task yet.</li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    {% endblock  %}
