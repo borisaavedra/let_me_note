@@ -1,5 +1,5 @@
 # let_me_note
-This is a To Do list project on Flask
+This is a To Do list project on Flask and Python
 
 ## Feature list
 1. Create an account with coupons
@@ -8,8 +8,8 @@ This is a To Do list project on Flask
 4. Delete task
 5. Change task status (*Done* and *Not Done*)
 
-## I use
-* Python 3
+## The tech
+* Python 3.8
 * Flask 1.1.2
 * Flask-Bootstrap 3.3.7.1
 * Flask-WTF 0.14.3
