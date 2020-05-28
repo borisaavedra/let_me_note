@@ -29,7 +29,7 @@ This is a To Do list project on Flask and Python
 ![ ](https://i.imgur.com/Kh9uv5x.png)
 Is very basic, I know! But I did the project in 3 hours while a change diapers to my kid :/
 
-#### Home page. Where yo can do pretty much everything
+#### Home page. Where you can do pretty much everything
 ![](https://i.imgur.com/r6RGrH8.png)
 Note the Add and Delete task button alignment. That was a pure CSS Flex-box. Nice :p
 
